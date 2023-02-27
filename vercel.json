@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "name": "Event-management-portal-frontend",
   "builds": [
     {
-      "src": "dist/main.js",
-      "use": "@vercel/node"
+      "src": "angular.json",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/main.js"
+      "dest": "/index.html"
     }
   ]
 }
