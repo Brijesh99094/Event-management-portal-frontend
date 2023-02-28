@@ -1,31 +1,46 @@
-name: Github Pages Deploy
+name: Build and deploy
 
 on:
   push:
-    branches:
-      - "main"
-
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.14.2]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Install
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+      - name: Use Node 18.14.2
+        uses: actions/setup-node@v3
         with:
-          branch: main
-          folder: dist/event-management-portal-frontend
+          node-version: '18.14.2'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:ci
+      - name: Archive build
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: deploy_dist
+          path: dist
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download build
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy_dist
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: deploy_dist/event-management-portal-frontend
+
