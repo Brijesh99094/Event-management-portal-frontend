@@ -37,10 +37,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: deploy_dist
+      - name: print all files and directory
+        run: ls -l 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: deploy_dist/index.html
+          FOLDER: deploy_dist/dist/event-management-portal-frontend
 
