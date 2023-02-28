@@ -7,8 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:ci": "ng build --prod --sourceMap=false --base-href /Event-management-portal-frontend/",
-    "test:ci": "ng test --watch=false --code-coverage --source-map true"
+    "build:ci": "ng build  --base-href /Event-management-portal-frontend/"
   },
   "private": true,
   "dependencies": {
