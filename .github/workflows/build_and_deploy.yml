@@ -38,11 +38,11 @@ jobs:
         with:
           name: deploy_dist
       - name: print all files and directory
-        run: ls -l 
+        run: ls -R 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: ./event-management-portal-frontend/index.html
+          FOLDER: ./event-management-portal-frontend
 
