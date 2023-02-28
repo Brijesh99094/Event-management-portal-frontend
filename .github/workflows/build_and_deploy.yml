@@ -44,5 +44,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: dist/event-management-portal-frontend
+          FOLDER: ./event-management-portal-frontend
 
